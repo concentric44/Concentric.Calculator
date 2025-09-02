@@ -6,114 +6,64 @@
   <title>Dividend & ROI Calculator with Tracker</title>
   <style>
     :root{
-      --bg-1:#0a0a0a;
-      --bg-2:#111111;
-      --glow:#ff6a00;        /* orange glow */
-      --accent:#ff7a1a;      /* primary orange */
-      --accent-2:#ffa24a;    /* warm amber */
-      --text:#fff5eb;
-      --muted:#d8c6b5;
-      --card:#121212;
-      --card-border:#2b1a0e;
-      --pill:#0f0e0c;
-      --shadow: 0 10px 30px rgba(0,0,0,.45);
-      --ring: 0 0 0 2px rgba(255,122,26,.35), 0 0 0 6px rgba(255,162,74,.18);
+      --bg-1:#0a0a0a; --bg-2:#111111;
+      --accent:#ff7a1a; --accent-2:#ffa24a;
+      --text:#fff5eb; --muted:#d8c6b5;
+      --card-border:#2b1a0e; --shadow:0 10px 30px rgba(0,0,0,.45);
+      --ring:0 0 0 2px rgba(255,122,26,.35), 0 0 0 6px rgba(255,162,74,.18);
     }
-    *{ box-sizing:border-box }
-    body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      margin:0; padding:24px;
-      background:
-        radial-gradient(900px 600px at 15% -10%, rgba(255,106,0,.15), transparent 60%),
-        radial-gradient(900px 600px at 110% 10%, rgba(255,162,74,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg-1), var(--bg-2));
-      min-height:100vh;
-    }
-    .wrap { max-width:1100px; margin:0 auto; }
-    .header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:10px; }
-    .title {
-      font-size:30px; font-weight:900; letter-spacing:.2px; margin:0;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    .brand-logo { width:72px; height:auto; object-fit:contain; filter: drop-shadow(0 6px 14px rgba(255,122,26,.35)); }
-    .sub { color:var(--muted); margin-bottom:20px; }
-    .card {
-      background:linear-gradient(180deg, rgba(36,24,16,.20), rgba(10,10,10,.70));
-      border:1px solid var(--card-border);
-      border-radius:18px; padding:18px; margin-bottom:20px; box-shadow:var(--shadow);
-      backdrop-filter: blur(4px);
-    }
-    h2{ margin:6px 0 14px 0; font-size:18px; letter-spacing:.3px }
-    .field { margin:12px 0; }
-    .label { font-size:12px; color:var(--muted); margin-bottom:6px; letter-spacing:.3px }
-    input {
-      width:100%; padding:12px 14px; border-radius:12px;
-      border:1px solid rgba(255,122,26,.28);
-      background:rgba(20,14,10,.75);
-      color:#fff2e6; font-weight:700; box-shadow: inset 0 0 0 1px rgba(255,162,74,.06);
-      transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
-    }
-    input:focus{
-      outline:none; border-color:var(--accent);
-      box-shadow: var(--ring);
-      background:rgba(24,16,10,.9);
-    }
-    input[readonly]{ color:#ffe6cc; opacity:.9; }
-    .pill {
-      background:linear-gradient(180deg, rgba(28,20,14,.7), rgba(16,12,10,.7));
-      border:1px solid rgba(255,122,26,.28);
-      padding:12px; border-radius:12px; display:flex; justify-content:space-between; margin-top:10px;
-      box-shadow: inset 0 0 0 1px rgba(255,162,74,.05);
-    }
-    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .hint { font-size:12px; color:var(--muted); }
-    .dex-grid { display:grid; grid-template-columns: 2fr 1fr; gap:14px; align-items:start; }
-    .dex-banner {
-      background:linear-gradient(180deg, rgba(28,20,14,.7), rgba(16,12,10,.7));
-      border:1px solid rgba(255,122,26,.28);
-      border-radius:12px; padding:12px; display:grid; gap:10px;
-    }
-    .kvs { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-    .kv { background:rgba(16,11,8,.7); border:1px solid rgba(255,122,26,.22); border-radius:10px; padding:10px; }
-    .kv .k { font-size:12px; color:var(--muted); }
-    .kv .v { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight:800; margin-top:3px; color:#fff1e3; }
-    @media (max-width: 980px){
-      .dex-grid { grid-template-columns: 1fr; }
-      .brand-logo { width:56px; }
-    }
-    .pill span{ color:#ffedd5 }
-    .pill strong{ color:#fff3e5 }
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI; color:var(--text);
+      margin:0;padding:24px; background:
+      radial-gradient(900px 600px at 15% -10%, rgba(255,106,0,.15), transparent 60%),
+      radial-gradient(900px 600px at 110% 10%, rgba(255,162,74,.10), transparent 55%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-2)); min-height:100vh;}
+    .wrap{max-width:1100px;margin:0 auto;}
+    .header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:10px;}
+    .title{font-size:30px;font-weight:900;letter-spacing:.2px;margin:0;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .brand-logo{width:72px;height:auto;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(255,122,26,.35));border-radius:8px}
+    .logo-fallback{width:72px;height:72px;border-radius:12px;background:#23160e;border:1px solid var(--card-border);
+      display:flex;align-items:center;justify-content:center;color:#ffd4a8;font-weight:900;font-size:28px;letter-spacing:1px}
+    .sub{color:var(--muted);margin-bottom:20px;}
+    .card{background:linear-gradient(180deg, rgba(36,24,16,.20), rgba(10,10,10,.70));
+      border:1px solid var(--card-border);border-radius:18px;padding:18px;margin-bottom:20px;box-shadow:var(--shadow);backdrop-filter:blur(4px);}
+    h2{margin:6px 0 14px 0;font-size:18px;letter-spacing:.3px}
+    .field{margin:12px 0}.label{font-size:12px;color:var(--muted);margin-bottom:6px;letter-spacing:.3px}
+    input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,122,26,.28);
+      background:rgba(20,14,10,.75);color:#fff2e6;font-weight:700;box-shadow:inset 0 0 0 1px rgba(255,162,74,.06);
+      transition:box-shadow .2s,border-color .2s,background .2s}
+    input:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring);background:rgba(24,16,10,.9)}
+    input[readonly]{color:#ffe6cc;opacity:.9}
+    .pill{background:linear-gradient(180deg, rgba(28,20,14,.7), rgba(16,12,10,.7));
+      border:1px solid rgba(255,122,26,.28);padding:12px;border-radius:12px;display:flex;justify-content:space-between;margin-top:10px;
+      box-shadow:inset 0 0 0 1px rgba(255,162,74,.05)}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .hint{font-size:12px;color:var(--muted)}
+    .dex-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;align-items:start}
+    .dex-banner{background:linear-gradient(180deg, rgba(28,20,14,.7), rgba(16,12,10,.7));
+      border:1px solid rgba(255,122,26,.28);border-radius:12px;padding:12px;display:grid;gap:10px}
+    .kvs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .kv{background:rgba(16,11,8,.7);border:1px solid rgba(255,122,26,.22);border-radius:10px;padding:10px}
+    .kv .k{font-size:12px;color:var(--muted)} .kv .v{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;margin-top:3px;color:#fff1e3}
+    @media (max-width:980px){.dex-grid{grid-template-columns:1fr}.brand-logo{width:56px}}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="header">
       <h1 class="title">Dividend & ROI Calculator</h1>
-      <!-- Place your provided logo file next to this HTML as 'logo.png' -->
-      <img class="brand-logo" src="logo.png" alt="Brand Logo">
+      <!-- Logo tries multiple paths; if not found, shows a fallback block -->
+      <img id="brandLogo" class="brand-logo" alt="Brand Logo" hidden>
+      <div id="logoFallback" class="logo-fallback">S</div>
     </div>
     <div class="sub">Total supply is locked at 1,000,000,000 tokens. Enter dividend pool, your tokens, and amount paid. Your % is calculated automatically.</div>
 
     <section class="card">
       <h2>Inputs</h2>
-      <div class="field">
-        <div class="label">Total dividend (USD)</div>
-        <input id="dividend" type="number" value="2000000" />
-      </div>
-      <div class="field">
-        <div class="label">Your % ownership (auto)</div>
-        <input id="percent" type="number" value="1" readonly />
-      </div>
-      <div class="field">
-        <div class="label">Tokens you hold (accepts 100k, 1.5M, 2B)</div>
-        <input id="units" type="text" value="10,000,000" />
-      </div>
-      <div class="field">
-        <div class="label">Amount you paid (USD)</div>
-        <input id="cost" type="number" value="0" />
-      </div>
+      <div class="field"><div class="label">Total dividend (USD)</div><input id="dividend" type="number" value="2000000"/></div>
+      <div class="field"><div class="label">Your % ownership (auto)</div><input id="percent" type="number" value="1" readonly/></div>
+      <div class="field"><div class="label">Tokens you hold (accepts 100k, 1.5M, 2B)</div><input id="units" type="text" value="10,000,000"/></div>
+      <div class="field"><div class="label">Amount you paid (USD)</div><input id="cost" type="number" value="0"/></div>
     </section>
 
     <section class="card">
@@ -126,21 +76,14 @@
     <section class="card">
       <h2>Token Price Tracker</h2>
       <div class="dex-grid">
-        <!-- Left: DexScreener live chart -->
-        <iframe
-          src="https://dexscreener.com/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz?embed=1&theme=dark"
-          style="width:100%; min-height:640px; border:0; border-radius:12px; box-shadow:var(--shadow)"
-          allowfullscreen
-          title="DexScreener Chart">
-        </iframe>
+        <iframe src="https://dexscreener.com/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz?embed=1&theme=dark"
+          style="width:100%; min-height:640px; border:0; border-radius:12px; box-shadow:var(--shadow)" allowfullscreen title="DexScreener Chart"></iframe>
 
-        <!-- Right: Compact banner-style live snapshot (via DexScreener API) -->
         <div class="dex-banner">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div style="font-weight:800; color:#ffe4cc">Live Pair Snapshot</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:800;color:#ffe4cc">Live Pair Snapshot</div>
             <div class="hint" id="lastUpdate">Last update: —</div>
           </div>
-
           <div class="kvs">
             <div class="kv"><div class="k">Price (USD)</div><div class="v" id="b_price">$0.00</div></div>
             <div class="kv"><div class="k">24h Change</div><div class="v" id="b_change">0.00%</div></div>
@@ -149,36 +92,43 @@
             <div class="kv"><div class="k">FDV</div><div class="v" id="b_fdv">$0</div></div>
             <div class="kv"><div class="k">Market</div><div class="v" id="b_chain">Solana</div></div>
           </div>
-
-          <div class="pill" style="margin-top:6px;">
-            <span>Cost for 1% supply (10,000,000 tokens)</span>
-            <strong id="costOne">$0.00</strong>
-          </div>
+          <div class="pill" style="margin-top:6px;"><span>Cost for 1% supply (10,000,000 tokens)</span><strong id="costOne">$0.00</strong></div>
         </div>
       </div>
 
-      <!-- Changeable cost-to-buy calculator (driven by live price) -->
       <div class="row2" style="margin-top:14px;">
-        <div class="field">
-          <div class="label">Desired ownership to buy (%)</div>
-          <input id="buyPercent" type="number" min="0" max="100" step="0.0001" value="0.67" />
-        </div>
-        <div class="field">
-          <div class="label">Desired tokens to buy</div>
-          <input id="buyTokens" type="number" min="0" max="1000000000" step="1" value="6700000" />
-        </div>
+        <div class="field"><div class="label">Desired ownership to buy (%)</div><input id="buyPercent" type="number" min="0" max="100" step="0.0001" value="0.67"/></div>
+        <div class="field"><div class="label">Desired tokens to buy</div><input id="buyTokens" type="number" min="0" max="1000000000" step="1" value="6700000"/></div>
       </div>
       <div class="pill"><span>Estimated cost for desired position</span><strong id="costDesired">$0.00</strong></div>
-
       <div class="pill"><span>Current token price</span><strong id="price">$0.00</strong></div>
     </section>
   </div>
 
   <script>
-    const SUPPLY = 1_000_000_000;
-    const ONE_PERCENT_TOKENS = SUPPLY / 100; // 10,000,000
-    const fmt = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:8}).format(n);
+    // Try multiple common logo paths (case-sensitive on GitHub Pages)
+    const logoCandidates = [
+      "./logo.png","./Logo.png","./logo.jpg","./logo.jpeg",
+      "./assets/logo.png","./assets/Logo.png","./images/logo.png"
+    ];
+    (function loadLogo(){
+      const imgEl = document.getElementById('brandLogo');
+      const fb = document.getElementById('logoFallback');
+      let i = 0;
+      function tryNext(){
+        if(i >= logoCandidates.length){ fb.hidden = false; imgEl.hidden = true; return; }
+        const src = logoCandidates[i++];
+        const probe = new Image();
+        probe.onload = () => { imgEl.src = src; imgEl.hidden = false; fb.hidden = true; };
+        probe.onerror = tryNext;
+        probe.src = src + '?v=' + Date.now(); // cache bust
+      }
+      tryNext();
+    })();
 
+    const SUPPLY = 1_000_000_000;
+    const ONE_PERCENT_TOKENS = SUPPLY / 100;
+    const fmt = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:8}).format(n);
     const lastUpdateEl = document.getElementById("lastUpdate");
 
     function parseHumanNumber(str){
@@ -186,20 +136,12 @@
       if(!str) return 0;
       const s = String(str).trim().replace(/,/g,'').toLowerCase();
       const m = s.match(/^([0-9]*\.?[0-9]+)\s*([kmb])?$/i);
-      if(m){
-        const base = parseFloat(m[1]);
-        const suf = (m[2]||'').toLowerCase();
-        const mul = suf==='k'?1e3:suf==='m'?1e6:suf==='b'?1e9:1;
-        return base*mul;
-      }
-      const n = Number(s);
-      return Number.isFinite(n)?n:0;
+      if(m){ const base=parseFloat(m[1]); const suf=(m[2]||'').toLowerCase(); const mul=suf==='k'?1e3:suf==='m'?1e6:suf==='b'?1e9:1; return base*mul; }
+      const n = Number(s); return Number.isFinite(n)?n:0;
     }
-
     function compute(){
       const dividend = Number(document.getElementById("dividend").value)||0;
-      let unitsRaw = document.getElementById("units").value;
-      let units = parseHumanNumber(unitsRaw);
+      let units = parseHumanNumber(document.getElementById("units").value);
       if(units<0) units=0;
       const percent = (units/SUPPLY)*100;
       document.getElementById("percent").value = percent;
@@ -213,79 +155,54 @@
       document.getElementById("roiProfit").textContent = fmt(roi);
       document.getElementById("roiPct").textContent = roiPct.toFixed(2)+"%";
     }
-
-    ["dividend","units","cost"].forEach(id=>{
-      document.getElementById(id).addEventListener("input",compute);
-    });
+    ["dividend","units","cost"].forEach(id=>document.getElementById(id).addEventListener("input",compute));
     compute();
 
-    // ===== Live DexScreener price tracking via API =====
     const PAIR_API = "https://api.dexscreener.com/latest/dex/pairs/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz";
     const priceEl = document.getElementById("price");
     const costOneEl = document.getElementById("costOne");
     const costDesiredEl = document.getElementById("costDesired");
     const buyPercentEl = document.getElementById("buyPercent");
     const buyTokensEl = document.getElementById("buyTokens");
-
     let livePrice = 0;
 
     function syncBuy(from){
       let p = Number(buyPercentEl.value)||0;
       let t = Number(buyTokensEl.value)||0;
-      if(from === 'percent'){
-        t = Math.round(SUPPLY * (p/100));
-        buyTokensEl.value = t;
-      } else {
-        t = Math.min(SUPPLY, Math.max(0, Math.round(t)));
-        p = (t / SUPPLY) * 100;
-        buyPercentEl.value = p;
-      }
+      if(from === 'percent'){ t = Math.round(SUPPLY * (p/100)); buyTokensEl.value = t; }
+      else { t = Math.min(SUPPLY, Math.max(0, Math.round(t))); p = (t/SUPPLY)*100; buyPercentEl.value = p; }
       updateCosts();
     }
-
     function updateCosts(){
       costOneEl.textContent = fmt(livePrice * ONE_PERCENT_TOKENS);
       const t = Number(buyTokensEl.value)||0;
       costDesiredEl.textContent = fmt(livePrice * t);
       document.getElementById("b_price").textContent = fmt(livePrice);
     }
-
     buyPercentEl.addEventListener('input', ()=>syncBuy('percent'));
     buyTokensEl.addEventListener('input', ()=>syncBuy('tokens'));
 
-    function toMoney(n){ return new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n||0); }
-
+    function toMoney(n){ return new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n||0) }
     async function fetchLive(){
       try{
-        const res = await fetch(PAIR_API, { cache: 'no-store' });
-        const json = await res.json();
-        const pair = json?.pairs?.[0] || {};
-        const p = Number(pair.priceUsd || 0);
-        if(!Number.isFinite(p) || p <= 0) throw new Error('Invalid price');
+        const res = await fetch(PAIR_API,{cache:'no-store'});
+        const json = await res.json(); const pair = json?.pairs?.[0]||{};
+        const p = Number(pair.priceUsd||0); if(!Number.isFinite(p)||p<=0) throw new Error('Invalid price');
         livePrice = p;
-
-        const change24h = Number(pair.priceChange?.h24 || 0);
-        const vol24h = Number(pair.volume?.h24 || 0);
-        const liquidityUsd = Number((pair.liquidity && pair.liquidity.usd) || 0);
-        const fdv = Number(pair.fdv || 0);
-
-        document.getElementById("b_change").textContent = (change24h>=0?'+':'') + (change24h.toFixed(2)) + '%';
+        const change24h = Number(pair.priceChange?.h24||0);
+        const vol24h = Number(pair.volume?.h24||0);
+        const liquidityUsd = Number((pair.liquidity && pair.liquidity.usd)||0);
+        const fdv = Number(pair.fdv||0);
+        document.getElementById("b_change").textContent = (change24h>=0?'+':'') + change24h.toFixed(2) + '%';
         document.getElementById("b_change").style.color = change24h>=0 ? '#f59e0b' : '#f87171';
         document.getElementById("b_vol").textContent = toMoney(vol24h);
         document.getElementById("b_liq").textContent = toMoney(liquidityUsd);
         document.getElementById("b_fdv").textContent = toMoney(fdv);
-
-        const now = new Date().toLocaleTimeString();
-        lastUpdateEl.textContent = "Last update: " + now;
-
+        lastUpdateEl.textContent = "Last update: " + new Date().toLocaleTimeString();
         updateCosts();
-      }catch(err){
-        lastUpdateEl.textContent = "Price update failed. Retrying...";
-      }
+      }catch(e){ lastUpdateEl.textContent = "Price update failed. Retrying..."; }
     }
-
-    fetchLive();
-    setInterval(fetchLive, 20000);
+    fetchLive(); setInterval(fetchLive, 20000);
   </script>
 </body>
 </html>
