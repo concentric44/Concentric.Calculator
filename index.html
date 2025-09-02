@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dividend & ROI Calculator with Tracker</title>
+  <link id="favicon" rel="icon" type="image/png" href="data:image/png;base64,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"/>
   <style>
     :root{
       --bg-1:#0a0a0a; --bg-2:#111111;
@@ -25,27 +26,201 @@
       min-height:100vh;
     }
     .wrap{ max-width:1100px; margin:0 auto; }
-    .header{ 
-      display:flex; 
-      align-items:center; 
-      justify-content:flex-start; /* changed from space-between */ 
-      gap:16px; 
-      margin-bottom:10px; 
-    }
+    .header{ display:flex; align-items:center; justify-content:flex-start; gap:16px; margin-bottom:10px; }
     .title{
       font-size:30px; font-weight:900; letter-spacing:.2px; margin:0;
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       -webkit-background-clip:text; background-clip:text; color:transparent;
       text-shadow: 0 0 20px rgba(255,122,26,.12);
     }
+    .brand-logo{ width:72px; height:auto; object-fit:contain; filter: drop-shadow(0 6px 14px rgba(255,122,26,.35)); }
     .sub{ color:var(--muted); margin-bottom:20px; }
+    .card{
+      background:linear-gradient(180deg, rgba(36,24,16,.22), rgba(10,10,10,.78));
+      border:2px solid var(--card-border);
+      border-radius:18px; padding:18px; margin-bottom:20px; box-shadow:var(--shadow);
+      backdrop-filter: blur(4px);
+    }
+    h2{ margin:6px 0 14px 0; font-size:18px; letter-spacing:.3px }
+    .field{ margin:12px 0; }
+    .label{ font-size:12px; color:var(--muted); margin-bottom:6px; letter-spacing:.3px }
+    input{
+      width:100%; padding:12px 14px; border-radius:12px;
+      border:2px solid var(--pill-border);
+      background:rgba(20,14,10,.78);
+      color:#fff2e6; font-weight:700; box-shadow: inset 0 0 0 1px rgba(255,162,74,.08);
+      transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    }
+    input:focus{
+      outline:none; border-color:var(--accent);
+      box-shadow: var(--ring);
+      background:rgba(24,16,10,.92);
+    }
+    input[readonly]{ color:#ffe6cc; opacity:.95; }
+    .pill{
+      background:linear-gradient(180deg, rgba(28,20,14,.78), rgba(16,12,10,.78));
+      border:2px solid var(--pill-border);
+      padding:12px; border-radius:12px; display:flex; justify-content:space-between; margin-top:10px;
+      box-shadow: inset 0 0 0 1px rgba(255,162,74,.07);
+    }
+    .row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .hint{ font-size:12px; color:var(--muted); }
+    .dex-grid{ display:grid; grid-template-columns: 2fr 1fr; gap:14px; align-items:start; }
+    .dex-banner{
+      background:linear-gradient(180deg, rgba(28,20,14,.78), rgba(16,12,10,.78));
+      border:2px solid var(--pill-border);
+      border-radius:12px; padding:12px; display:grid; gap:10px;
+    }
+    .kvs{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .kv{
+      background:rgba(16,11,8,.78);
+      border:2px solid rgba(255,122,26,.45);
+      border-radius:10px; padding:10px;
+    }
+    .kv .k{ font-size:12px; color:var(--muted); }
+    .kv .v{ font-family: ui-monospace, Menlo, Consolas, monospace; font-weight:800; margin-top:3px; color:#fff1e3; }
+    @media (max-width: 980px){
+      .dex-grid { grid-template-columns: 1fr; }
+      .brand-logo { width:56px; }
+    }
+    .pill span{ color:#ffedd5 }
+    .pill strong{ color:#fff3e5 }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="header">
       <h1 class="title">Dividend & ROI Calculator</h1>
+      
     </div>
+    <div class="sub">Total supply is locked at 1,000,000,000 tokens. Enter dividend pool, your tokens, and amount paid. Your % is calculated automatically.</div>
+
+    <section class="card">
+      <h2>Inputs</h2>
+      <div class="field"><div class="label">Total dividend (USD)</div><input id="dividend" type="number" value="2000000"/></div>
+      <div class="field"><div class="label">Your % ownership (auto)</div><input id="percent" type="number" value="1" readonly/></div>
+      <div class="field"><div class="label">Tokens you hold (accepts 100k, 1.5M, 2B)</div><input id="units" type="text" value="10,000,000"/></div>
+      <div class="field"><div class="label">Amount you paid (USD)</div><input id="cost" type="number" value="0"/></div>
+    </section>
+
+    <section class="card">
+      <h2>Results (per quarter)</h2>
+      <div class="pill"><span>Your payout</span><strong id="yourPayout">$0.00</strong></div>
+      <div class="pill"><span>ROI (Profit)</span><strong id="roiProfit">$0.00</strong></div>
+      <div class="pill"><span>ROI (%)</span><strong id="roiPct">0.00%</strong></div>
+    </section>
+
+    <section class="card">
+      <h2>Token Price Tracker</h2>
+      <div class="dex-grid">
+        <iframe src="https://dexscreener.com/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz?embed=1&theme=dark"
+          style="width:100%; min-height:640px; border:0; border-radius:12px; box-shadow:var(--shadow)" allowfullscreen title="DexScreener Chart"></iframe>
+
+        <div class="dex-banner">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-weight:800; color:#ffe4cc">Live Pair Snapshot</div>
+            <div class="hint" id="lastUpdate">Last update: —</div>
+          </div>
+          <div class="kvs">
+            <div class="kv"><div class="k">Price (USD)</div><div class="v" id="b_price">$0.00</div></div>
+            <div class="kv"><div class="k">24h Change</div><div class="v" id="b_change">0.00%</div></div>
+            <div class="kv"><div class="k">24h Volume</div><div class="v" id="b_vol">$0</div></div>
+            <div class="kv"><div class="k">Liquidity (USD)</div><div class="v" id="b_liq">$0</div></div>
+            <div class="kv"><div class="k">FDV</div><div class="v" id="b_fdv">$0</div></div>
+            <div class="kv"><div class="k">Market</div><div class="v" id="b_chain">Solana</div></div>
+          </div>
+          <div class="pill" style="margin-top:6px;"><span>Cost for 1% supply (10,000,000 tokens)</span><strong id="costOne">$0.00</strong></div>
+        </div>
+      </div>
+
+      <div class="row2" style="margin-top:14px;">
+        <div class="field"><div class="label">Desired ownership to buy (%)</div><input id="buyPercent" type="number" min="0" max="100" step="0.0001" value="0.67"/></div>
+        <div class="field"><div class="label">Desired tokens to buy</div><input id="buyTokens" type="number" min="0" max="1000000000" step="1" value="6700000"/></div>
+      </div>
+      <div class="pill"><span>Estimated cost for desired position</span><strong id="costDesired">$0.00</strong></div>
+      <div class="pill"><span>Current token price</span><strong id="price">$0.00</strong></div>
+    </section>
   </div>
+
+  <script>
+    const SUPPLY = 1_000_000_000;
+    const ONE_PERCENT_TOKENS = SUPPLY / 100;
+    const fmt = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:8}).format(n);
+
+    function parseHumanNumber(str){
+      if(typeof str === 'number') return str;
+      if(!str) return 0;
+      const s = String(str).trim().replace(/,/g,'').toLowerCase();
+      const m = s.match(/^([0-9]*\.?[0-9]+)\s*([kmb])?$/i);
+      if(m){ const base=parseFloat(m[1]); const suf=(m[2]||'').toLowerCase(); const mul=suf==='k'?1e3:suf==='m'?1e6:suf==='b'?1e9:1; return base*mul; }
+      const n = Number(s); return Number.isFinite(n)?n:0;
+    }
+    function compute(){
+      const dividend = Number(document.getElementById("dividend").value)||0;
+      let units = parseHumanNumber(document.getElementById("units").value);
+      if(units<0) units=0;
+      const percent = (units/SUPPLY)*100;
+      document.getElementById("percent").value = percent;
+      const cost = Number(document.getElementById("cost").value)||0;
+
+      const payout = dividend*(percent/100);
+      const roi = payout-cost;
+      const roiPct = cost>0?(payout/cost-1)*100:0;
+
+      document.getElementById("yourPayout").textContent = fmt(payout);
+      document.getElementById("roiProfit").textContent = fmt(roi);
+      document.getElementById("roiPct").textContent = roiPct.toFixed(2)+"%";
+    }
+    ["dividend","units","cost"].forEach(id=>document.getElementById(id).addEventListener("input",compute));
+    compute();
+
+    // Live DexScreener price tracking
+    const PAIR_API = "https://api.dexscreener.com/latest/dex/pairs/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz";
+    const priceEl = document.getElementById("price");
+    const costOneEl = document.getElementById("costOne");
+    const costDesiredEl = document.getElementById("costDesired");
+    const buyPercentEl = document.getElementById("buyPercent");
+    const buyTokensEl = document.getElementById("buyTokens");
+    const lastUpdateEl = document.getElementById("lastUpdate");
+    let livePrice = 0;
+
+    function syncBuy(from){
+      let p = Number(buyPercentEl.value)||0;
+      let t = Number(buyTokensEl.value)||0;
+      if(from === 'percent'){ t = Math.round(SUPPLY * (p/100)); buyTokensEl.value = t; }
+      else { t = Math.min(SUPPLY, Math.max(0, Math.round(t))); p = (t/SUPPLY)*100; buyPercentEl.value = p; }
+      updateCosts();
+    }
+    function updateCosts(){
+      costOneEl.textContent = fmt(livePrice * ONE_PERCENT_TOKENS);
+      const t = Number(buyTokensEl.value)||0;
+      costDesiredEl.textContent = fmt(livePrice * t);
+      document.getElementById("b_price").textContent = fmt(livePrice);
+    }
+    buyPercentEl.addEventListener('input', ()=>syncBuy('percent'));
+    buyTokensEl.addEventListener('input', ()=>syncBuy('tokens'));
+
+    function toMoney(n){ return new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n||0) }
+    async function fetchLive(){
+      try{
+        const res = await fetch(PAIR_API,{cache:'no-store'});
+        const json = await res.json(); const pair = json?.pairs?.[0]||{};
+        const p = Number(pair.priceUsd||0); if(!Number.isFinite(p)||p<=0) throw new Error('Invalid price');
+        livePrice = p;
+        const change24h = Number(pair.priceChange?.h24||0);
+        const vol24h = Number(pair.volume?.h24||0);
+        const liquidityUsd = Number((pair.liquidity && pair.liquidity.usd)||0);
+        const fdv = Number(pair.fdv||0);
+        document.getElementById("b_change").textContent = (change24h>=0?'+':'') + change24h.toFixed(2) + '%';
+        document.getElementById("b_change").style.color = change24h>=0 ? '#f59e0b' : '#f87171';
+        document.getElementById("b_vol").textContent = toMoney(vol24h);
+        document.getElementById("b_liq").textContent = toMoney(liquidityUsd);
+        document.getElementById("b_fdv").textContent = toMoney(fdv);
+        lastUpdateEl.textContent = "Last update: " + new Date().toLocaleTimeString();
+        updateCosts();
+      }catch(e){ lastUpdateEl.textContent = "Price update failed. Retrying..."; }
+    }
+    fetchLive(); setInterval(fetchLive, 20000);
+  </script>
 </body>
 </html>
