@@ -4,57 +4,107 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dividend & ROI Calculator with Tracker</title>
+  <!-- Favicon (embedded, updates if you set a new logo) -->
+  <link id="favicon" rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAFG0lEQVR4nO2cS2wbRRiAd/bteJ2kjp2QUErSpNBEKCioPESrgpRUENFy4CVxq0CCGxIXQBEIqYJwAAQHEAgkyAEp4gIExOuCoCmFRlGrVmqgRgkSoa7iOG4U79r78gynDU4yzj6yO2s7/o6OvfP/3/7z73i8WYpq0GAngDAHR2NdyOl7wXg6lFiJDupGiB2khAU+iJ9SKhGkrEAOTEJKJfyWRft5MIoKV04Q4/tmO2wxOPyoJl8qqBrlUJQ/ce3IcLWKweG1mjxXUC3JoSjv8XoSVGtyLLzE7VpQrcqxcBu/K0G1LsfCTR6OBdWLHAun+TgSVG9yLJzk5ftKut6wFVSv1WNhl9+2gupdjsV2eTammA0VBe2W6rGolC9W0G6TY4HLuzHFbGgIsmGLoN06vSw258+GFUhGgXByrlicXtT0SxnTzBYgzOsQsjQAUQ6AjihN72tmmIMJlh3q4Li7u3ju1jaWeLzEByyaCL16Op9/d0ZRDLi1WE2IkGoitFKEcC5rmj8saJr1ty6JYSZOtLYc6xEEUvFumGJBTy/FQOiByZXcm7/LWDl2pOVS6Wq+BAMIbQPlHog26Rd/WlubXtR1kmPuFGKCMgqEH55XCqTG8wtiPej7BVUrYWYVRwPq+bui0mP9EfGWOMNKPA1kHaKMAksXlgzzt6u6/nVKVRdWSyVSsZazLijo/vP3asnEvf7a/bHYC/dIUvlrLQINWgSaPRBn2Sf6I+I7Iy3Ns9cM471ZRRFZMrcToLEuBMbTgFgFFQ28/8F2jnPy+UOdHDdxorXVz5icQKwHdUoMdqyPLigFL1c0UhCroOFuHrt2+fKKqu5/P5N55KAoHtnL84PtHNsXZ1km1DuX/mc9DBJfMR76PJf7bl7V7N4nMAAMJFj28E08P9wt8A/uFwSRBcSVgfE0ICpouQDhfZ9lV/7ImtiGXYkYD8CzQ9Gml+6VpLYITawtgPE0ILpQTDbR9MzJZOK5O6NRnnFeEXkdobfOycrgx8vZ2WuGEWSMmyFaQeUsKRBOXi4Wv51XtbP/6nrBQI7G74jS9OVn2pMkKon4FKuECSnqyoppXswYxkxaN35c0LQ/VypPw1eOxKRTR2OxoOOqGkE4Tv+j609+dX01LW9dQQ91cNz5p5OJoGMg3oPccHQfz7890oytkvlVd01+J6wLCvq22qmUqo79vJZf05z1GoqiqEobZBoBPZYPYhVUNBF646ws932wlHn917ycUaDtvs43f+HXTIkmcpd64juKywUIX/4lnz91RpZHewVhuFvgD+/l+RtjDBOPAPp6EcFUzjQnLhWKn1wsYLdHbkuS23oNbU9aLyE0lVLVqZSquv3swwdEMYiYcGwo1bD+H8INN7cwzFO3N0WCHKPcQ9VexXDsEWn6i0fje0h+LyMm6HifKH56vLV1pEcQWA+jHusRhHMnE2133OBs/8gvsGci6EWjrCM0vajrZxY1fS5rmqmcaWYKEOY1hEoIIYmn6bgIwECCYw91cvzj/RFxIEGmMW9uM6E0aYkHYLRXEEZ7yf2+5ZWa6kFhgBVUC1ezIMDlXbGCdpukSvk2ppgN2wraLVW0XZ62FVTvkuzya0wxGxwJqtcqcpKX4wqqN0lO83E1xepFkps8XPegWpfkNn5PTbpWJXmJ2/NVrNYkeY3XlySr7Te1cnZ6In1ZB1VrNfkRl++JVUM1+XnCfF9Jh11Nfo/feH6Q3bGDOjCOxhOoXFILzzBrYMN/K1YjqoW3uOsAAAAASUVORK5CYII="/>
   <style>
     :root{
       --bg-1:#0a0a0a; --bg-2:#111111;
       --accent:#ff7a1a; --accent-2:#ffa24a;
       --text:#fff5eb; --muted:#d8c6b5;
-      --card-border:#2b1a0e; --shadow:0 10px 30px rgba(0,0,0,.45);
-      --ring:0 0 0 2px rgba(255,122,26,.35), 0 0 0 6px rgba(255,162,74,.18);
+      --card-border:#c25b13;
+      --pill-border:rgba(255,122,26,.55);
+      --shadow:0 10px 30px rgba(0,0,0,.55);
+      --ring:0 0 0 2px rgba(255,122,26,.5), 0 0 0 8px rgba(255,162,74,.18);
     }
-    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI; color:var(--text);
-      margin:0;padding:24px; background:
-      radial-gradient(900px 600px at 15% -10%, rgba(255,106,0,.15), transparent 60%),
-      radial-gradient(900px 600px at 110% 10%, rgba(255,162,74,.10), transparent 55%),
-      linear-gradient(180deg, var(--bg-1), var(--bg-2)); min-height:100vh;}
-    .wrap{max-width:1100px;margin:0 auto;}
-    .header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:10px;}
-    .title{font-size:30px;font-weight:900;letter-spacing:.2px;margin:0;
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
-    .brand-logo{width:72px;height:auto;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(255,122,26,.35));border-radius:8px}
-    .logo-fallback{width:72px;height:72px;border-radius:12px;background:#23160e;border:1px solid var(--card-border);
-      display:flex;align-items:center;justify-content:center;color:#ffd4a8;font-weight:900;font-size:28px;letter-spacing:1px}
-    .sub{color:var(--muted);margin-bottom:20px;}
-    .card{background:linear-gradient(180deg, rgba(36,24,16,.20), rgba(10,10,10,.70));
-      border:1px solid var(--card-border);border-radius:18px;padding:18px;margin-bottom:20px;box-shadow:var(--shadow);backdrop-filter:blur(4px);}
-    h2{margin:6px 0 14px 0;font-size:18px;letter-spacing:.3px}
-    .field{margin:12px 0}.label{font-size:12px;color:var(--muted);margin-bottom:6px;letter-spacing:.3px}
-    input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,122,26,.28);
-      background:rgba(20,14,10,.75);color:#fff2e6;font-weight:700;box-shadow:inset 0 0 0 1px rgba(255,162,74,.06);
-      transition:box-shadow .2s,border-color .2s,background .2s}
-    input:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring);background:rgba(24,16,10,.9)}
-    input[readonly]{color:#ffe6cc;opacity:.9}
-    .pill{background:linear-gradient(180deg, rgba(28,20,14,.7), rgba(16,12,10,.7));
-      border:1px solid rgba(255,122,26,.28);padding:12px;border-radius:12px;display:flex;justify-content:space-between;margin-top:10px;
-      box-shadow:inset 0 0 0 1px rgba(255,162,74,.05)}
-    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .hint{font-size:12px;color:var(--muted)}
-    .dex-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;align-items:start}
-    .dex-banner{background:linear-gradient(180deg, rgba(28,20,14,.7), rgba(16,12,10,.7));
-      border:1px solid rgba(255,122,26,.28);border-radius:12px;padding:12px;display:grid;gap:10px}
-    .kvs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .kv{background:rgba(16,11,8,.7);border:1px solid rgba(255,122,26,.22);border-radius:10px;padding:10px}
-    .kv .k{font-size:12px;color:var(--muted)} .kv .v{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;margin-top:3px;color:#fff1e3}
-    @media (max-width:980px){.dex-grid{grid-template-columns:1fr}.brand-logo{width:56px}}
+    *{ box-sizing:border-box }
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text); margin:0; padding:24px;
+      background:
+        radial-gradient(900px 600px at 15% -10%, rgba(255,106,0,.16), transparent 60%),
+        radial-gradient(900px 600px at 110% 10%, rgba(255,162,74,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      min-height:100vh;
+    }
+    .wrap{ max-width:1100px; margin:0 auto; }
+    .header{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:10px; }
+    .title{
+      font-size:30px; font-weight:900; letter-spacing:.2px; margin:0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow: 0 0 20px rgba(255,122,26,.12);
+    }
+    .brand-right{ display:flex; align-items:center; gap:10px; }
+    .brand-logo{ width:72px; height:auto; object-fit:contain; filter: drop-shadow(0 6px 14px rgba(255,122,26,.35)); }
+    .logo-btn{
+      appearance:none; border:2px solid var(--pill-border); background:transparent; color:#ffdcbf;
+      border-radius:10px; padding:8px 10px; font-weight:700; cursor:pointer;
+    }
+    .logo-btn:hover{ border-color:#ff9a4a; color:#ffedd5 }
+    .sub{ color:var(--muted); margin-bottom:20px; }
+    .card{
+      background:linear-gradient(180deg, rgba(36,24,16,.22), rgba(10,10,10,.78));
+      border:2px solid var(--card-border);
+      border-radius:18px; padding:18px; margin-bottom:20px; box-shadow:var(--shadow);
+      backdrop-filter: blur(4px);
+    }
+    h2{ margin:6px 0 14px 0; font-size:18px; letter-spacing:.3px }
+    .field{ margin:12px 0; }
+    .label{ font-size:12px; color:var(--muted); margin-bottom:6px; letter-spacing:.3px }
+    input{
+      width:100%; padding:12px 14px; border-radius:12px;
+      border:2px solid var(--pill-border);
+      background:rgba(20,14,10,.78);
+      color:#fff2e6; font-weight:700; box-shadow: inset 0 0 0 1px rgba(255,162,74,.08);
+      transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    }
+    input:focus{
+      outline:none; border-color:var(--accent);
+      box-shadow: var(--ring);
+      background:rgba(24,16,10,.92);
+    }
+    input[readonly]{ color:#ffe6cc; opacity:.95; }
+    .pill{
+      background:linear-gradient(180deg, rgba(28,20,14,.78), rgba(16,12,10,.78));
+      border:2px solid var(--pill-border);
+      padding:12px; border-radius:12px; display:flex; justify-content:space-between; margin-top:10px;
+      box-shadow: inset 0 0 0 1px rgba(255,162,74,.07);
+    }
+    .row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .hint{ font-size:12px; color:var(--muted); }
+    .dex-grid{ display:grid; grid-template-columns: 2fr 1fr; gap:14px; align-items:start; }
+    .dex-banner{
+      background:linear-gradient(180deg, rgba(28,20,14,.78), rgba(16,12,10,.78));
+      border:2px solid var(--pill-border);
+      border-radius:12px; padding:12px; display:grid; gap:10px;
+    }
+    .kvs{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .kv{
+      background:rgba(16,11,8,.78);
+      border:2px solid rgba(255,122,26,.45);
+      border-radius:10px; padding:10px;
+    }
+    .kv .k{ font-size:12px; color:var(--muted); }
+    .kv .v{ font-family: ui-monospace, Menlo, Consolas, monospace; font-weight:800; margin-top:3px; color:#fff1e3; }
+    @media (max-width: 980px){
+      .dex-grid { grid-template-columns: 1fr; }
+      .brand-logo { width:56px; }
+      .logo-btn { display:none; }
+    }
+    .pill span{ color:#ffedd5 }
+    .pill strong{ color:#fff3e5 }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="header">
       <h1 class="title">Dividend & ROI Calculator</h1>
-      <!-- Logo tries multiple paths; if not found, shows a fallback block -->
-      <img id="brandLogo" class="brand-logo" alt="Brand Logo" hidden>
-      <div id="logoFallback" class="logo-fallback">S</div>
+      <div class="brand-right">
+        <!-- Inline placeholder (replaced when you click Set Logo) -->
+        <img id="brandLogo" class="brand-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAFG0lEQVR4nO2cS2wbRRiAd/bteJ2kjp2QUErSpNBEKCioPESrgpRUENFy4CVxq0CCGxIXQBEIqYJwAAQHEAgkyAEp4gIExOuCoCmFRlGrVmqgRgkSoa7iOG4U79r78gynDU4yzj6yO2s7/o6OvfP/3/7z73i8WYpq0GAngDAHR2NdyOl7wXg6lFiJDupGiB2khAU+iJ9SKhGkrEAOTEJKJfyWRft5MIoKV04Q4/tmO2wxOPyoJl8qqBrlUJQ/ce3IcLWKweG1mjxXUC3JoSjv8XoSVGtyLLzE7VpQrcqxcBu/K0G1LsfCTR6OBdWLHAun+TgSVG9yLJzk5ftKut6wFVSv1WNhl9+2gupdjsV2eTammA0VBe2W6rGolC9W0G6TY4HLuzHFbGgIsmGLoN06vSw258+GFUhGgXByrlicXtT0SxnTzBYgzOsQsjQAUQ6AjihN72tmmIMJlh3q4Li7u3ju1jaWeLzEByyaCL16Op9/d0ZRDLi1WE2IkGoitFKEcC5rmj8saJr1ty6JYSZOtLYc6xEEUvFumGJBTy/FQOiByZXcm7/LWDl2pOVS6Wq+BAMIbQPlHog26Rd/WlubXtR1kmPuFGKCMgqEH55XCqTG8wtiPej7BVUrYWYVRwPq+bui0mP9EfGWOMNKPA1kHaKMAksXlgzzt6u6/nVKVRdWSyVSsZazLijo/vP3asnEvf7a/bHYC/dIUvlrLQINWgSaPRBn2Sf6I+I7Iy3Ns9cM471ZRRFZMrcToLEuBMbTgFgFFQ28/8F2jnPy+UOdHDdxorXVz5icQKwHdUoMdqyPLigFL1c0UhCroOFuHrt2+fKKqu5/P5N55KAoHtnL84PtHNsXZ1km1DuX/mc9DBJfMR76PJf7bl7V7N4nMAAMJFj28E08P9wt8A/uFwSRBcSVgfE0ICpouQDhfZ9lV/7ImtiGXYkYD8CzQ9Gml+6VpLYITawtgPE0ILpQTDbR9MzJZOK5O6NRnnFeEXkdobfOycrgx8vZ2WuGEWSMmyFaQeUsKRBOXi4Wv51XtbP/6nrBQI7G74jS9OVn2pMkKon4FKuECSnqyoppXswYxkxaN35c0LQ/VypPw1eOxKRTR2OxoOOqGkE4Tv+j609+dX01LW9dQQ91cNz5p5OJoGMg3oPccHQfz7890oytkvlVd01+J6wLCvq22qmUqo79vJZf05z1GoqiqEobZBoBPZYPYhVUNBF646ws932wlHn917ycUaDtvs43f+HXTIkmcpd64juKywUIX/4lnz91RpZHewVhuFvgD+/l+RtjDBOPAPp6EcFUzjQnLhWKn1wsYLdHbkuS23oNbU9aLyE0lVLVqZSquv3swwdEMYiYcGwo1bD+H8INN7cwzFO3N0WCHKPcQ9VexXDsEWn6i0fje0h+LyMm6HifKH56vLV1pEcQWA+jHusRhHMnE2133OBs/8gvsGci6EWjrCM0vajrZxY1fS5rmqmcaWYKEOY1hEoIIYmn6bgIwECCYw91cvzj/RFxIEGmMW9uM6E0aYkHYLRXEEZ7yf2+5ZWa6kFhgBVUC1ezIMDlXbGCdpukSvk2ppgN2wraLVW0XZ62FVTvkuzya0wxGxwJqtcqcpKX4wqqN0lO83E1xepFkps8XPegWpfkNn5PTbpWJXmJ2/NVrNYkeY3XlySr7Te1cnZ6In1ZB1VrNfkRl++JVUM1+XnCfF9Jh11Nfo/feH6Q3bGDOjCOxhOoXFILzzBrYMN/K1YjqoW3uOsAAAAASUVORK5CYII=" alt="Brand Logo"/>
+        <input id="logoFile" type="file" accept="image/*" hidden>
+        <button class="logo-btn" id="logoBtn" title="Embed your logo as Base64">Set Logo</button>
+      </div>
     </div>
     <div class="sub">Total supply is locked at 1,000,000,000 tokens. Enter dividend pool, your tokens, and amount paid. Your % is calculated automatically.</div>
 
@@ -80,8 +130,8 @@
           style="width:100%; min-height:640px; border:0; border-radius:12px; box-shadow:var(--shadow)" allowfullscreen title="DexScreener Chart"></iframe>
 
         <div class="dex-banner">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-weight:800;color:#ffe4cc">Live Pair Snapshot</div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-weight:800; color:#ffe4cc">Live Pair Snapshot</div>
             <div class="hint" id="lastUpdate">Last update: —</div>
           </div>
           <div class="kvs">
@@ -106,30 +156,44 @@
   </div>
 
   <script>
-    // Try multiple common logo paths (case-sensitive on GitHub Pages)
-    const logoCandidates = [
-      "./logo.png","./Logo.png","./logo.jpg","./logo.jpeg",
-      "./assets/logo.png","./assets/Logo.png","./images/logo.png"
-    ];
-    (function loadLogo(){
-      const imgEl = document.getElementById('brandLogo');
-      const fb = document.getElementById('logoFallback');
-      let i = 0;
-      function tryNext(){
-        if(i >= logoCandidates.length){ fb.hidden = false; imgEl.hidden = true; return; }
-        const src = logoCandidates[i++];
-        const probe = new Image();
-        probe.onload = () => { imgEl.src = src; imgEl.hidden = false; fb.hidden = true; };
-        probe.onerror = tryNext;
-        probe.src = src + '?v=' + Date.now(); // cache bust
+    // === Inline logo handling (Base64) ===
+    const brandLogo = document.getElementById('brandLogo');
+    const logoBtn = document.getElementById('logoBtn');
+    const logoFile = document.getElementById('logoFile');
+    const favicon = document.getElementById('favicon');
+
+    // Load previously saved Base64 logo if present
+    (function initLogo(){
+      const saved = localStorage.getItem('embeddedLogoB64');
+      if(saved){
+        brandLogo.src = saved;
+        favicon.href = saved;
       }
-      tryNext();
     })();
 
+    logoBtn.addEventListener('click', ()=> logoFile.click());
+    logoFile.addEventListener('change', async (e)=>{
+      const f = e.target.files[0];
+      if(!f) return;
+      const b64 = await fileToBase64(f);
+      brandLogo.src = b64;
+      favicon.href = b64;
+      localStorage.setItem('embeddedLogoB64', b64);
+    });
+
+    function fileToBase64(file){
+      return new Promise((resolve,reject)=>{
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // === Calculator logic (unchanged math) ===
     const SUPPLY = 1_000_000_000;
     const ONE_PERCENT_TOKENS = SUPPLY / 100;
     const fmt = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:8}).format(n);
-    const lastUpdateEl = document.getElementById("lastUpdate");
 
     function parseHumanNumber(str){
       if(typeof str === 'number') return str;
@@ -139,6 +203,7 @@
       if(m){ const base=parseFloat(m[1]); const suf=(m[2]||'').toLowerCase(); const mul=suf==='k'?1e3:suf==='m'?1e6:suf==='b'?1e9:1; return base*mul; }
       const n = Number(s); return Number.isFinite(n)?n:0;
     }
+
     function compute(){
       const dividend = Number(document.getElementById("dividend").value)||0;
       let units = parseHumanNumber(document.getElementById("units").value);
@@ -158,12 +223,14 @@
     ["dividend","units","cost"].forEach(id=>document.getElementById(id).addEventListener("input",compute));
     compute();
 
+    // Live DexScreener price tracking
     const PAIR_API = "https://api.dexscreener.com/latest/dex/pairs/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz";
     const priceEl = document.getElementById("price");
     const costOneEl = document.getElementById("costOne");
     const costDesiredEl = document.getElementById("costDesired");
     const buyPercentEl = document.getElementById("buyPercent");
     const buyTokensEl = document.getElementById("buyTokens");
+    const lastUpdateEl = document.getElementById("lastUpdate");
     let livePrice = 0;
 
     function syncBuy(from){
