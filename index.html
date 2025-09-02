@@ -11,12 +11,12 @@
     .sub { color:#8a8fa6; margin-bottom:18px; }
     .card { background:#14141a; border:1px solid #272a36; border-radius:18px; padding:18px; margin-bottom:20px; }
     .field { margin:12px 0; }
-    .label { font-size:13px; color:#8a8fa6; margin-bottom:4px; }
+    .label { font-size:13px; color:#8a8fa6; margin-bottom:6px; }
     input { width:100%; padding:12px; border-radius:12px; border:1px solid #2a2e3b; background:#0f1016; color:#fff; font-weight:700; }
     input:focus{ border-color:#3b82f6; outline:none; }
-    input[readonly]{ color:#c9d1e6; opacity:.8; }
+    input[readonly]{ color:#c9d1e6; opacity:.85; }
     .pill { background:#0f1118; border:1px solid #273142; padding:12px; border-radius:12px; display:flex; justify-content:space-between; margin-top:10px; }
-    canvas { background:#0f1118; border:1px solid #273142; border-radius:12px; margin-top:20px; }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     .hint { font-size:12px; color:#8a8fa6; }
   </style>
 </head>
@@ -54,22 +54,34 @@
 
     <section class="card">
       <h2>Token Price Tracker</h2>
+      <div class="hint" id="pairInfo">Source: DexScreener • Pair: 82q6l7...heaz</div>
 
       <!-- DexScreener embedded banner & chart -->
       <iframe
         src="https://dexscreener.com/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz?embed=1&theme=dark"
-        style="width:100%; height:600px; border:0; border-radius:12px; margin-bottom:20px;"
+        style="width:100%; height:600px; border:0; border-radius:12px; margin:10px 0 16px 0;"
         allowfullscreen>
       </iframe>
 
-      <canvas id="chart" width="900" height="360"></canvas>
+      <!-- Changeable cost-to-buy calculator (driven by live price) -->
+      <div class="row2">
+        <div class="field">
+          <div class="label">Desired ownership to buy (%)</div>
+          <input id="buyPercent" type="number" min="0" max="100" step="0.0001" value="0.67" />
+        </div>
+        <div class="field">
+          <div class="label">Desired tokens to buy</div>
+          <input id="buyTokens" type="number" min="0" max="1000000000" step="1" value="6700000" />
+        </div>
+      </div>
+      <div class="pill"><span>Estimated cost for desired position</span><strong id="costDesired">$0.00</strong></div>
+
       <div class="pill"><span>Current token price</span><strong id="price">Loading...</strong></div>
       <div class="pill"><span>Cost for 1% supply (10,000,000 tokens)</span><strong id="costOne">Loading...</strong></div>
       <div class="hint" id="lastUpdate"></div>
     </section>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const SUPPLY = 1_000_000_000;
     const ONE_PERCENT_TOKENS = SUPPLY / 100; // 10,000,000
@@ -120,21 +132,36 @@
 
     // ===== Live DexScreener price tracking via API =====
     const PAIR_API = "https://api.dexscreener.com/latest/dex/pairs/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz";
-
-    const ctx = document.getElementById('chart').getContext('2d');
-    const chart = new Chart(ctx, {
-      type: 'line',
-      data: { labels:[], datasets:[{label:'Token Price (USD)', data:[], borderColor:'#4ade80', pointRadius:0, tension:0.2}]},
-      options: {
-        animation: false,
-        responsive: true,
-        scales:{ x:{ title:{display:true,text:'Time'}}, y:{ title:{display:true,text:'Price (USD)'}, ticks:{ callback:(v)=> v }}},
-        plugins:{ legend:{display:false} }
-      }
-    });
-
     const priceEl = document.getElementById("price");
     const costOneEl = document.getElementById("costOne");
+    const costDesiredEl = document.getElementById("costDesired");
+    const buyPercentEl = document.getElementById("buyPercent");
+    const buyTokensEl = document.getElementById("buyTokens");
+
+    let livePrice = 0;
+
+    function syncBuy(from){
+      let p = Number(buyPercentEl.value)||0;
+      let t = Number(buyTokensEl.value)||0;
+      if(from === 'percent'){
+        t = Math.round(SUPPLY * (p/100));
+        buyTokensEl.value = t;
+      } else {
+        t = Math.min(SUPPLY, Math.max(0, Math.round(t)));
+        p = (t / SUPPLY) * 100;
+        buyPercentEl.value = p;
+      }
+      updateCosts();
+    }
+
+    function updateCosts(){
+      costOneEl.textContent = fmt(livePrice * ONE_PERCENT_TOKENS);
+      const t = Number(buyTokensEl.value)||0;
+      costDesiredEl.textContent = fmt(livePrice * t);
+    }
+
+    buyPercentEl.addEventListener('input', ()=>syncBuy('percent'));
+    buyTokensEl.addEventListener('input', ()=>syncBuy('tokens'));
 
     async function fetchLive(){
       try{
@@ -142,22 +169,13 @@
         const data = await res.json();
         const p = Number(data?.pairs?.[0]?.priceUsd || 0);
         if(!Number.isFinite(p) || p <= 0) throw new Error('Invalid price');
+        livePrice = p;
         const now = new Date();
         const ts = now.toLocaleTimeString();
 
-        // Update UI
         priceEl.textContent = fmt(p);
-        costOneEl.textContent = fmt(p * ONE_PERCENT_TOKENS);
         lastUpdateEl.textContent = "Last update: " + ts;
-
-        // Update chart
-        chart.data.labels.push(ts);
-        chart.data.datasets[0].data.push(p);
-        if(chart.data.labels.length > 120){
-          chart.data.labels.shift();
-          chart.data.datasets[0].data.shift();
-        }
-        chart.update('none');
+        updateCosts();
       }catch(err){
         lastUpdateEl.textContent = "Price update failed. Retrying...";
       }
