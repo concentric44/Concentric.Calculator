@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dividend & ROI Calculator with Tracker</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#0b0b0f; color:#eef1f8; margin:0; padding:24px; }
+    .wrap { max-width:980px; margin:0 auto; }
+    .title { font-size:28px; font-weight:800; margin-bottom:6px; }
+    .sub { color:#8a8fa6; margin-bottom:18px; }
+    .card { background:#14141a; border:1px solid #272a36; border-radius:18px; padding:18px; margin-bottom:20px; }
+    .field { margin:12px 0; }
+    .label { font-size:13px; color:#8a8fa6; margin-bottom:4px; }
+    input { width:100%; padding:12px; border-radius:12px; border:1px solid #2a2e3b; background:#0f1016; color:#fff; font-weight:700; }
+    input:focus{ border-color:#3b82f6; outline:none; }
+    input[readonly]{ color:#c9d1e6; opacity:.8; }
+    .pill { background:#0f1118; border:1px solid #273142; padding:12px; border-radius:12px; display:flex; justify-content:space-between; margin-top:10px; }
+    canvas { background:#0f1118; border:1px solid #273142; border-radius:12px; margin-top:20px; }
+    .hint { font-size:12px; color:#8a8fa6; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">Dividend & ROI Calculator</div>
+    <div class="sub">Total supply is locked at 1,000,000,000 tokens. Enter dividend pool, your tokens, and amount paid. Your % is calculated automatically.</div>
+
+    <section class="card">
+      <h2>Inputs</h2>
+      <div class="field">
+        <div class="label">Total dividend (USD)</div>
+        <input id="dividend" type="number" value="2000000" />
+      </div>
+      <div class="field">
+        <div class="label">Your % ownership (auto)</div>
+        <input id="percent" type="number" value="1" readonly />
+      </div>
+      <div class="field">
+        <div class="label">Tokens you hold (accepts 100k, 1.5M, 2B)</div>
+        <input id="units" type="text" value="10,000,000" />
+      </div>
+      <div class="field">
+        <div class="label">Amount you paid (USD)</div>
+        <input id="cost" type="number" value="0" />
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Results (per quarter)</h2>
+      <div class="pill"><span>Your payout</span><strong id="yourPayout">$0.00</strong></div>
+      <div class="pill"><span>ROI (Profit)</span><strong id="roiProfit">$0.00</strong></div>
+      <div class="pill"><span>ROI (%)</span><strong id="roiPct">0.00%</strong></div>
+    </section>
+
+    <section class="card">
+      <h2>Token Price Tracker</h2>
+
+      <!-- DexScreener embedded banner & chart -->
+      <iframe
+        src="https://dexscreener.com/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz?embed=1&theme=dark"
+        style="width:100%; height:600px; border:0; border-radius:12px; margin-bottom:20px;"
+        allowfullscreen>
+      </iframe>
+
+      <canvas id="chart" width="900" height="360"></canvas>
+      <div class="pill"><span>Current token price</span><strong id="price">Loading...</strong></div>
+      <div class="pill"><span>Cost for 1% supply (10,000,000 tokens)</span><strong id="costOne">Loading...</strong></div>
+      <div class="hint" id="lastUpdate"></div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const SUPPLY = 1_000_000_000;
+    const ONE_PERCENT_TOKENS = SUPPLY / 100; // 10,000,000
+    const fmt = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:8}).format(n);
+
+    const yourPayoutEl = document.getElementById("yourPayout");
+    const roiProfitEl = document.getElementById("roiProfit");
+    const roiPctEl = document.getElementById("roiPct");
+    const lastUpdateEl = document.getElementById("lastUpdate");
+
+    function parseHumanNumber(str){
+      if(typeof str === 'number') return str;
+      if(!str) return 0;
+      const s = String(str).trim().replace(/,/g,'').toLowerCase();
+      const m = s.match(/^([0-9]*\.?[0-9]+)\s*([kmb])?$/i);
+      if(m){
+        const base = parseFloat(m[1]);
+        const suf = (m[2]||'').toLowerCase();
+        const mul = suf==='k'?1e3:suf==='m'?1e6:suf==='b'?1e9:1;
+        return base*mul;
+      }
+      const n = Number(s);
+      return Number.isFinite(n)?n:0;
+    }
+
+    function compute(){
+      const dividend = Number(document.getElementById("dividend").value)||0;
+      let unitsRaw = document.getElementById("units").value;
+      let units = parseHumanNumber(unitsRaw);
+      if(units<0) units=0;
+      const percent = (units/SUPPLY)*100;
+      document.getElementById("percent").value = percent;
+      const cost = Number(document.getElementById("cost").value)||0;
+
+      const payout = dividend*(percent/100);
+      const roi = payout-cost;
+      const roiPct = cost>0?(payout/cost-1)*100:0;
+
+      yourPayoutEl.textContent = fmt(payout);
+      roiProfitEl.textContent = fmt(roi);
+      roiPctEl.textContent = roiPct.toFixed(2)+"%";
+    }
+
+    ["dividend","units","cost"].forEach(id=>{
+      document.getElementById(id).addEventListener("input",compute);
+    });
+    compute();
+
+    // ===== Live DexScreener price tracking via API =====
+    const PAIR_API = "https://api.dexscreener.com/latest/dex/pairs/solana/82q6l714avsh7ze6j43r4u1vuxq4uyd7c7khf8t1heaz";
+
+    const ctx = document.getElementById('chart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: { labels:[], datasets:[{label:'Token Price (USD)', data:[], borderColor:'#4ade80', pointRadius:0, tension:0.2}]},
+      options: {
+        animation: false,
+        responsive: true,
+        scales:{ x:{ title:{display:true,text:'Time'}}, y:{ title:{display:true,text:'Price (USD)'}, ticks:{ callback:(v)=> v }}},
+        plugins:{ legend:{display:false} }
+      }
+    });
+
+    const priceEl = document.getElementById("price");
+    const costOneEl = document.getElementById("costOne");
+
+    async function fetchLive(){
+      try{
+        const res = await fetch(PAIR_API, { cache: 'no-store' });
+        const data = await res.json();
+        const p = Number(data?.pairs?.[0]?.priceUsd || 0);
+        if(!Number.isFinite(p) || p <= 0) throw new Error('Invalid price');
+        const now = new Date();
+        const ts = now.toLocaleTimeString();
+
+        // Update UI
+        priceEl.textContent = fmt(p);
+        costOneEl.textContent = fmt(p * ONE_PERCENT_TOKENS);
+        lastUpdateEl.textContent = "Last update: " + ts;
+
+        // Update chart
+        chart.data.labels.push(ts);
+        chart.data.datasets[0].data.push(p);
+        if(chart.data.labels.length > 120){
+          chart.data.labels.shift();
+          chart.data.datasets[0].data.shift();
+        }
+        chart.update('none');
+      }catch(err){
+        lastUpdateEl.textContent = "Price update failed. Retrying...";
+      }
+    }
+
+    fetchLive();
+    setInterval(fetchLive, 20000);
+  </script>
+</body>
+</html>
